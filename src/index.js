@@ -2,25 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client"
 
 import './index.css'
+import { books } from "./books"
+import { Book } from "./Book"
 
-const firstBook = {
-    id: 1,
-    title: "Don't Believe Everything You Think ",
-    author: "Joseph Nguyen ",
-    img: "https://images-eu.ssl-images-amazon.com/images/I/715qi-cIbML._AC_UL600_SR600,400_.jpg"
-}
-
-const secondBook = {
-    id: 2,
-    title: "Atomic Habits ",
-    author: "James Clear",
-    img: "https://images-eu.ssl-images-amazon.com/images/I/81Ls+SBCLiL._AC_UL600_SR600,400_.jpg"
-}
-
-const books = [firstBook, secondBook]
 
 
 function BookList() {
+
     const someValue = 'shakeAndBake'
     const displayValue = () => {
         console.log(someValue)
@@ -29,19 +17,23 @@ function BookList() {
         console.log(books.find(el => el.id === id))
     }
 
-    return <section className="bookList">
-        <EventExamples />
-        {books.map(el => <Book
-            key={el.id}
-            id={el.id}
-            bookTitle={el.title}
-            bookImg={el.img}
-            bookAuthor={el.author}
-            displayBookValue={displayValue}
-            handleGetBook={handleGetBook}
-        >
-        </Book>)}
-    </section >
+    return <>
+        <h1>Best Selling Books</h1>
+        <section className="bookList">
+            <EventExamples />
+            {books.map((el, idx) => <Book
+                key={el.id}
+                id={el.id}
+                idx={idx}
+                bookTitle={el.title}
+                bookImg={el.img}
+                bookAuthor={el.author}
+                displayBookValue={displayValue}
+                handleGetBook={handleGetBook}
+            >
+            </Book>)}
+        </section >
+    </>
 }
 
 
@@ -73,23 +65,6 @@ const EventExamples = () => {
 }
 
 
-
-function Book({ bookTitle, bookImg, bookAuthor, displayBookValue, handleGetBook, children, id }) {
-
-    return (
-        <article className="book">
-            <img
-                src={bookImg}
-                alt="Don't Believe Everything You Think "
-            />
-            <h1>{bookTitle}</h1>
-            <h2 style={{ color: 'blue' }}>{bookAuthor}</h2>
-            {children}
-            <button onClick={displayBookValue}>Title</button>
-            <button onClick={() => handleGetBook(id)}>Get Book</button>
-        </article>
-    );
-}
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(<BookList></BookList>)
